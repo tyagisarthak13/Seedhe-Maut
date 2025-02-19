@@ -1,11 +1,14 @@
 import express from "express";
 import "dotenv/config";
-import { connectDB } from "../src/config/db.js";
-import { router as mainRouter } from "./routes/index.js";
+import { connectDB } from "./src/config/db.js";
+import { router as mainRouter } from "./src/routes/index.js";
+import bodyParser from "body-parser";
 
 const app = express();
 
-app.use("/", mainRouter);
+app.use(bodyParser.json());
+
+app.use(mainRouter);
 
 connectDB()
   .then(() => {
