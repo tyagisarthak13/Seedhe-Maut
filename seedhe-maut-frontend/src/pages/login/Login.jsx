@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import "./Login.css"; // Import the CSS file for styling
+// import Button from "../../components/button/loginbtn";
+import { Link } from "react-router-dom";
+
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -23,7 +27,11 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
+    <div>
+      {/* <button className="login-btn" >
+  
+    </button> */}
+      <div className="login-container">
       <div className="login-box">
         <h2>Login</h2>
         {error && <p className="error">{error}</p>}
@@ -45,8 +53,11 @@ const Login = () => {
             />
           </div>
           <button type="submit">Login</button>
+          {/* <p>Don't have any account ? <a href="../signup/Signup.jsx">Signup</a></p> */}
+          <p>Don't have an account? <Link to="/Signup">Signup</Link></p>
         </form>
       </div>
+    </div>
     </div>
   );
 };
