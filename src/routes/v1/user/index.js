@@ -1,6 +1,7 @@
 // user/index.js
 import express from "express";
-import { signup, login } from "../../../services/user.js";
+import { signup, login, userDetails } from "../../../services/user.js";
+import { authToken } from "../../../middlewares/auth.js";
 
 const router = express.Router();
 
@@ -11,11 +12,15 @@ router.get("/", (req, res) => {
 
 router.post("/signup", async (req, res) => {
   console.log("fbdgferggrgtrrtrrgtrgtgtrgrf", req.body);
-  await signup(req, res);
+  await (req, res);
 });
 
 router.post("/login", async (req, res) => {
   await login(req, res);
+});
+
+router.get("/getuserbyid", authToken, async (req, res) => {
+  await userDetails(req, res);
 });
 
 export { router };

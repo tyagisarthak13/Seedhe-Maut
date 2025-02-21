@@ -81,3 +81,11 @@ export const login = async (req, res) => {
     return res.status(500).json({ msg: error.message, status: false });
   }
 };
+
+export const userDetails = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+  } catch (error) {
+    return res.status(500).json({ msg: error.message, status: false });
+  }
+};
