@@ -1,7 +1,8 @@
-import express from "express";
+import express, { application } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { User } from "../models/user.js";
+
 
 // Signup Route
 export const signup = async (req, res) => {

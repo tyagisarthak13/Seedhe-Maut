@@ -1,22 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../signup/Signup.jsx";
 import "./Signup.css";
 import { Link } from "react-router-dom";
-import { createUser } from "../../services/userService.js";
+import axios from "axios"; 
+// import { createUser } from "../../services/userService.js";
 
 const Signup = () => {
-  const [text, setText] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [number, setPhoneNumber] = useState("");
-  const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
-    const{email} = e.target;
+  const [user, setUser] = useState({
+    firstName:"",
+    lastName:"",
+    name: "",
+    email: "",
+    password: "",
+    number:"",
+  });
+
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!text || !email || !password) {
-      setError("Email and password are required");
-      return;
+    try {
+      const response = await axios.post("http://localhost:3001/Signup",user);
+      if (response.status === 201) {
+        setSuccess("Signup successful!");
+        setError("");
+        
+      }
+    } catch (err) {
+      setError("Signup failed. Please try again.");
+      setSuccess("");
     }
     // useEffect(() => {
     //   const fetchUsers = async () => {
@@ -40,45 +54,66 @@ const Signup = () => {
       <div className="signup-box">
         <h1>Signup</h1>
         {error && <p className="error">{error}</p>}
+        {success && <p className="success">{success}</p>}
         <form onSubmit={handleSubmit}>
+        <div>
+            <label>First Name</label>
+            <input
+              type="text"
+              value={user.firstName || ""}
+              id="fuser"
+              placeholder="Enter your first name "
+              onChange={(e) => setUser({ ...user, firstName: e.target.value })}
+            />
+          </div>
+          <div>
+            <label>Last Name</label>
+            <input
+              type="text"
+              value={user.lastName || ""}
+              id="luser"
+              placeholder="Enter your last name "
+              onChange={(e) => setUser({ ...user, lastNmae: e.target.value})}
+            />
+          </div>
           <div>
             <label>Username</label>
             <input
               type="text"
-              value={text}
-              id=""
+              value={user.name || ""}
+              id="user"
               placeholder="Enter your username "
-              onChange={(e) => setText(e.target.value)}
+              onChange={(e) => setUser({...user, name: e.target.value})}
             />
           </div>
           <div>
             <label>Email:</label>
             <input
               type="email"
-              value={email}
-              id=""
+              value={user.email ||""}
+              id="sEmail"
               placeholder="Enter your email"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setUser({...user, email: e.target.value})}
             />
           </div>
           <div>
             <label>Phone Number</label>
             <input
               type="number"
-              value={number}
-              id=""
+              value={user.number || ""}
+              id="sNumber"
               placeholder="Enter your Phone number"
-              onChange={(e) => setPhoneNumber(e.target.value)}
+              onChange={(e) => setUser({...user, number: e.target.value})}
             />
           </div>
           <div>
             <label>Password</label>
             <input
               type="password"
-              value={password}
-              id=""
+              value={user.password || ""}
+              id="Spass"
               placeholder="enter your password"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setUser({...user, password: e.target.value})}
             />
           </div>
           <button type="submit">Submit</button>
