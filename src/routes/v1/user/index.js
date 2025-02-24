@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
 
 router.post("/signup", async (req, res) => {
   console.log("fbdgferggrgtrrtrrgtrgtgtrgrf", req.body);
-  await (req, res);
+  await signup (req, res);
 });
 
 router.post("/login", async (req, res) => {

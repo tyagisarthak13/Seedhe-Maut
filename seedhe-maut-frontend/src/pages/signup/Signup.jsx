@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import "../signup/Signup.jsx";
 import "./Signup.css";
-import { Link } from "react-router-dom";
-import axios from "axios"; 
-// import { createUser } from "../../services/userService.js";
+import { Link, useNavigate } from "react-router-dom";
+import { createUser } from "../../services/userService.js";
+import { toast } from 'react-toastify';
+
+
 
 const Signup = () => {
 
@@ -18,19 +20,39 @@ const Signup = () => {
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const navigate =useNavigate();
 
   const handleSubmit = async (e) => {
+
+ 
+
+   
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3001/Signup",user);
-      if (response.status === 201) {
-        setSuccess("Signup successful!");
-        setError("");
+      const objToSend = {
+        firstName: user['firstName'],
+        lastName: "sharma",
+        userName: user['name'],
+        email: user['email'],
+        phoneNumber: user['number'],
+        password: user['password']
+      }
+
+      if(!user['email'] || !user['password']){
+          return   toast.error("invaild form")
+      }
+
+      const response = await createUser(objToSend);
+   
+      if (response.status) {
+        toast.success("Signup Scess", {
+          style: { background: "#28a745", color: "#fff", fontWeight: "bold" },
+        }, 3000);
+        navigate("/");
         
       }
     } catch (err) {
-      setError("Signup failed. Please try again.");
-      setSuccess("");
+      toast.error(err.message)
     }
     // useEffect(() => {
     //   const fetchUsers = async () => {
@@ -73,7 +95,7 @@ const Signup = () => {
               value={user.lastName || ""}
               id="luser"
               placeholder="Enter your last name "
-              onChange={(e) => setUser({ ...user, lastNmae: e.target.value})}
+              onChange={(e) => setUser({ ...user, lastName: e.target.value})}
             />
           </div>
           <div>
