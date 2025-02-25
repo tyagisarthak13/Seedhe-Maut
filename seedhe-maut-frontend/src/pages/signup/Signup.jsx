@@ -8,7 +8,6 @@ import { toast } from 'react-toastify';
 
 
 const Signup = () => {
-
   const [user, setUser] = useState({
     firstName:"",
     lastName:"",
@@ -24,9 +23,6 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
 
- 
-
-   
     e.preventDefault();
     try {
       const objToSend = {
@@ -39,13 +35,13 @@ const Signup = () => {
       }
 
       if(!user['email'] || !user['password']){
-          return   toast.error("invaild form")
+          return toast.error("invaild form")
       }
 
       const response = await createUser(objToSend);
    
       if (response.status) {
-        toast.success("Signup Scess", {
+        toast.success("Signup successful", {
           style: { background: "#28a745", color: "#fff", fontWeight: "bold" },
         }, 3000);
         navigate("/");

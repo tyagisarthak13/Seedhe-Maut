@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Login.css"; // Import the CSS file for styling
 // import Button from "../../components/button/loginbtn";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { loginUser } from "../../services/userService.js";
 
@@ -9,6 +9,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate =useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,11 +28,11 @@ const Login = () => {
         toast.success(response.msg, {
                   style: { background: "#28a745", color: "#fff", fontWeight: "bold" },
                 }, 3000);
+                navigate("/Home");
       } else{
         toast.error(response.msg)
       }
     } catch (error) {
-      debugger;
       toast.error(error.response.data.msg)
     } 
   };
