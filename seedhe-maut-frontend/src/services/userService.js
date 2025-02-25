@@ -22,7 +22,6 @@ export const createUser = async (userData) => {
 export const loginUser = async (credentialData) => {
   try {
     const response = await API.post("/user//login", credentialData);
-    debugger
     return response.data;
   } catch (error) {
     console.error("Error creating user:", error);
