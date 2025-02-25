@@ -16,8 +16,6 @@
     
 .div1 {
     grid-row: span 5 / span 5;
-    background-image: url(../../assets/image/Album3.jpeg);
-    background-repeat: no-repeat;
     background-color: bisque;
     height: 50vh;
     margin: 0 20px 0 20px;

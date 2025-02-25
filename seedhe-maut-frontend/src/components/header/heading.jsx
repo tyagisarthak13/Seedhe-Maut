@@ -2,7 +2,14 @@ import React from "react";
 import "../header/heading.css";
 import { Link } from "react-router-dom";
 
+
+
+
 const Heading = () => {
+
+
+
+
   return (
     <header className="header-container">
         <a href="" className="logo">LOGO</a>
